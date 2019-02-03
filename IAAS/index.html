@@ -5,7 +5,7 @@
 </head>
 <body>
 
-<form action="/action_page.php">
+<form action="/cgi-bin/test.cgi" method="POST">
   <p><b>os type :
   <select  name="os">
     <option value="ubuntu">ubunt</option>
@@ -13,14 +13,14 @@
     <option value="rhel7">rhel75</option>
   </select></p>
   <p><b> ram :    <select name="ram">
-	<option value="1G">1G</option>
-	<option value="512">512M</option>
+	<option value="1024">1024</option>
+	<option value="512">512</option>
   </select></p>
  <p><b> cpu type : <select name="cpu">
 	<option value="1">1</option>
 	<option value="2">2</option>
   </select></p>
-<label for="movie">How often you watch movie in week : </label><input id="movie" name="disk" type="number" min ="5" max="30" value="20"/>
+ <p>Disk : </p><input name="disk" type="number" min ="5" max="30" value="20"/>
   <input type="submit">
 </form>
 
