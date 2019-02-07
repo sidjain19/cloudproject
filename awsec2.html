@@ -2,15 +2,29 @@
 <html>
 <body>
 <form action="/cgi-bin/ec2py.cgi" method="POST">
+
+<p><b>Username:
+<input type="text" name="usr">
+
 <p><b>Instance :
 <br>
 <input type="radio" name="os" value="ami-5b673c34" checked>Redhat<br>
 <input type="radio" name="os" value="ami-0d773a3b7bb2bb1c1"> Ubuntu<br>
 <input type="radio" name="os" value="ami-0209d238252cbc9fe">Windows<br>
+</p>
+
 <p><b>security group :
-<input type="text" name="grp"><br>
+<a href="/user.html">Click to select your existing security group</a>
+<input type="text" name="grp1"><br>
+
+Create a new security group : <br>
+<input type="text" name="grp2"><br>
+</p>
+
 <p><b>Number of Instances :
 <input type="number" name="cnt"><br>
+</p>
+
 <input type="submit">
 </form>
 <body>

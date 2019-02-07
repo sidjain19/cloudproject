@@ -1,6 +1,8 @@
 #!/usr/bin/python2
 
-import  cgi,cgitb,os,commands,time,subprocess,qrcode,json
+import  cgi,cgitb,os,commands,json
+import mysql.connector as mysql
+
 cgitb.enable()
 
 print  "Content-type:text/html"
@@ -8,10 +10,38 @@ print  ""
 
 web=cgi.FieldStorage()
 os_name=web.getvalue('os')
-sec_grp=web.getvalue('grp')
+sec_grp1=web.getvalue('grp1')
+user_name=web.getvalue('user')
+user_name=user_name.strip(' ')
+
 cnt=web.getvalue('cnt')
-var1=commands.getoutput('sudo aws ec2 create-security-group --group-name '+sec_grp+' --description "My security group" --query "GroupId" ')
-#print var1
-var2=commands.getoutput('sudo aws ec2 run-instances --image-id '+os_name+' --count '+ cnt+' --instance-type t2.micro --key-name "tanishanew" --security-group-ids '+var1+' --subnet-id subnet-0352eb4f')
+commands.getoutput('sudo aws ec2 create-security-group --group-name '+sec_grp1+' --description "My security group" ')
+var2=commands.getoutput('sudo aws ec2 run-instances --image-id '+os_name+' --count '+ cnt+' --instance-type t2.micro --key-name "tanishanew" --security-groups '+sec_grp1+' --query Instances[0].InstanceId')
+
+conn=mysql.connect(user='root', password='redhat', host='localhost', database='aws')
+
+sql=conn.cursor()
+sql.execute('INSERT INTO ec2 VALUES(%s,%s,%s)',(var2,user_name,sec_grp1))
+
+conn.commit()
+var1='''
+<!DOCTYPE html>
+<html>
+<body>
+<p>CONGRATULATIONS your instance has been created</p>
+<input type="hidden" name='usr' value='''print var1,'"',user_name,'"'
+var2='''
+<a href="viewinst.cgi">view your instances</a>
+</body>
+</html>
+'''
 print var2
+
+
+
+
+
+
+
+
 
