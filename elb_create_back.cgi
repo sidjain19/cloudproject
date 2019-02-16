@@ -30,4 +30,4 @@ print "Your DNS for ELB is: "+var1
 
 sql.execute('INSERT INTO elb VALUES(%s,%s,%s)',(elb,user[0],sec_grp))
 conn.commit()
-'''
+
